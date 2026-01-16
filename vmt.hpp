@@ -6,6 +6,7 @@ class VMTShadowing {
 private:
 	void*		m_pObject;
 	uintptr_t*	m_pVftOrig;
+	uintptr_t*	m_pShadowAlloc;
 	uintptr_t*	m_pUserVft;
 
 	size_t		m_iVftSize;
@@ -21,13 +22,13 @@ public:
 	~VMTShadowing();
 
 	template <typename T>
-	T			    Hook(size_t index, void* hook_func);
+	T			Hook(size_t index, void* hook_func);
 
-	bool		    UnHook(size_t index);
-	bool		    UnHookAll();
-	bool		    Shutdown();
+	bool		UnHook(size_t index);
+	bool		UnHookAll();
+	bool		Shutdown();
 
-	inline bool     IsInitialized() const { return m_bIsInit; };
+	inline bool IsInitialized() const { return m_bIsInit; };
 };
 
 template <typename T>
@@ -38,8 +39,9 @@ T VMTShadowing::Hook(size_t index, void* hook_func) {
 	if (!m_bIsInit)
 		return nullptr;
 
-	if (index > m_iVftSize)
+	if (index >= m_iVftSize)
 		return nullptr;
+
 
 	if (m_OriginalFuncs.find(index) == m_OriginalFuncs.end()) {
 		m_OriginalFuncs[index] = m_pUserVft[index];
