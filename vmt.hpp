@@ -21,13 +21,13 @@ public:
 	~VMTShadowing();
 
 	template <typename T>
-	T			      Hook(size_t index, void* hook_func);
+	T			    Hook(size_t index, void* hook_func);
 
 	bool		    UnHook(size_t index);
 	bool		    UnHookAll();
 	bool		    Shutdown();
 
-	inline bool IsInitialized() const { return m_bIsInit; };
+	inline bool     IsInitialized() const { return m_bIsInit; };
 };
 
 template <typename T>
