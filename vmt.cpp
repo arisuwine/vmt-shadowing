@@ -56,7 +56,6 @@ bool VMTShadowing::UnHook(size_t index) {
 	if (m_OriginalFuncs.find(index) == m_OriginalFuncs.end())
 		return FALSE;
 
-
 	m_pUserVft[index] = m_OriginalFuncs[index];
 	m_OriginalFuncs.erase(index);
 	return TRUE;
