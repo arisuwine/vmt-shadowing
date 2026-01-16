@@ -42,9 +42,8 @@ T VMTShadowing::Hook(size_t index, void* hook_func) {
 	if (index >= m_iVftSize)
 		return nullptr;
 
-	if (m_OriginalFuncs.find(index) == m_OriginalFuncs.end()) {
+	if (m_OriginalFuncs.find(index) == m_OriginalFuncs.end())
 		m_OriginalFuncs[index] = m_pUserVft[index];
-	}
 
 	m_pUserVft[index] = reinterpret_cast<uintptr_t>(hook_func);
 
